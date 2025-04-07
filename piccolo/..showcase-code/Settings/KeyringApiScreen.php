@@ -144,7 +144,7 @@ class KeyringApiScreen {
 	 * @return void
 	 */
 	public function render_page() {
-		$service = \Keyring::get_service_by_name( PISTACHIO_GMAIL_KEYRING_SLUG );
+		$service = \Keyring::get_service_by_name( PICCOLO_GMAIL_KEYRING_SLUG );
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html( $this->get_page_title() ); ?></h1>
@@ -196,12 +196,12 @@ class KeyringApiScreen {
 		 * - The service has a UI to link to
 		 * - The user has the relevant permission to connect to the service
 		 */
-		if ( current_user_can( 'install_plugins' ) && ! KEYRING__HEADLESS_MODE && has_action( 'keyring_' . PISTACHIO_GMAIL_KEYRING_SLUG . '_manage_ui' ) ) {
+		if ( current_user_can( 'install_plugins' ) && ! KEYRING__HEADLESS_MODE && has_action( 'keyring_' . PICCOLO_GMAIL_KEYRING_SLUG . '_manage_ui' ) ) {
 			$manage_kr_nonce = wp_create_nonce( 'keyring-manage' );
-			$manage_nonce    = wp_create_nonce( 'keyring-manage-' . PISTACHIO_GMAIL_KEYRING_SLUG );
+			$manage_nonce    = wp_create_nonce( 'keyring-manage-' . PICCOLO_GMAIL_KEYRING_SLUG );
 			echo '<p><a href="' . esc_url(
 				\Keyring_Util::admin_url(
-					PISTACHIO_GMAIL_KEYRING_SLUG,
+					PICCOLO_GMAIL_KEYRING_SLUG,
 					array(
 						'action'   => 'manage',
 						'kr_nonce' => $manage_kr_nonce,
@@ -242,7 +242,7 @@ class KeyringApiScreen {
 						<p><?php echo sprintf( esc_html__( 'It looks like you have created a connection(s) to Google Mail via %s. Please select an existing connection, or create a new one a new one and click continue.', 'piccolo' ), '<a href="' . esc_url( \Keyring_Util::admin_url() ) . '">Keyring</a>' ); ?></p>
 					<?php endif; ?>
 
-					<?php $service->token_select_box( PISTACHIO_GMAIL_KEYRING_SLUG . '_token', true ); ?>
+					<?php $service->token_select_box( PICCOLO_GMAIL_KEYRING_SLUG . '_token', true ); ?>
 					<input type="submit" name="connect_existing"
 						   value="<?php echo esc_attr( esc_html__( 'Continue&hellip;', 'piccolo' ) ); ?>"
 						   id="connect_existing"
@@ -285,13 +285,13 @@ class KeyringApiScreen {
 			$this->redirect_to_service_setup();
 		}
 
-		if ( isset( $_REQUEST[ PISTACHIO_GMAIL_KEYRING_SLUG . '_token' ] ) && 'new' === $_REQUEST[ PISTACHIO_GMAIL_KEYRING_SLUG . '_token' ] ) {
+		if ( isset( $_REQUEST[ PICCOLO_GMAIL_KEYRING_SLUG . '_token' ] ) && 'new' === $_REQUEST[ PICCOLO_GMAIL_KEYRING_SLUG . '_token' ] ) {
 			$this->redirect_to_service_setup();
 		}
 
 		// If a token is present, save it.
-		if ( ! empty( $_REQUEST[ PISTACHIO_GMAIL_KEYRING_SLUG . '_token' ] ) ) {
-			$this->keyring_support->set_option( 'token_id', absint( $_REQUEST[ PISTACHIO_GMAIL_KEYRING_SLUG . '_token' ] ) );
+		if ( ! empty( $_REQUEST[ PICCOLO_GMAIL_KEYRING_SLUG . '_token' ] ) ) {
+			$this->keyring_support->set_option( 'token_id', absint( $_REQUEST[ PICCOLO_GMAIL_KEYRING_SLUG . '_token' ] ) );
 		}
 
 		// Redirect to settings page
@@ -379,7 +379,7 @@ class KeyringApiScreen {
 	 * @return void
 	 */
 	public function redirect_to_service_setup() {
-		\Keyring_Util::connect_to( PISTACHIO_GMAIL_KEYRING_SLUG, 'keyring-' . PISTACHIO_GMAIL_KEYRING_SLUG . '-importer' );
+		\Keyring_Util::connect_to( PICCOLO_GMAIL_KEYRING_SLUG, 'keyring-' . PICCOLO_GMAIL_KEYRING_SLUG . '-importer' );
 		exit;
 	}
 

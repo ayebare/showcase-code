@@ -238,7 +238,7 @@ class Endpoints {
 		$label = $this->keyring_api->get_imported_messages_label_id();
 
 		if ( empty( $label ) ) {
-			return rest_ensure_response( new \WP_Error( 'invalid_param_value', sprintf( 'No label "%s" was found in Gmail', PISTACHIO_GMAIL_IMPORTED_LABEL ) ) );
+			return rest_ensure_response( new \WP_Error( 'invalid_param_value', sprintf( 'No label "%s" was found in Gmail', PICCOLO_GMAIL_IMPORTED_LABEL ) ) );
 		}
 
 		$params = array(

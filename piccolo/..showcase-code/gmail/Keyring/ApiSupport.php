@@ -108,7 +108,7 @@ class APISupport {
 	 * @return void
 	 */
 	public function init_keyring() {
-		$this->options = get_option( PISTACHIO_GMAIL_OPTIONS, array() );
+		$this->options = get_option( PICCOLO_GMAIL_OPTIONS, array() );
 		$this->token   = $this->get_token();
 		if ( $this->token ) {
 			$this->setup_keyring_service();
@@ -127,7 +127,7 @@ class APISupport {
 		if ( $this->get_option( 'token_id' ) ) {
 			$token = \Keyring::get_token_store()->get_token(
 				array(
-					'service' => PISTACHIO_GMAIL_KEYRING_SLUG,
+					'service' => PICCOLO_GMAIL_KEYRING_SLUG,
 					'id'      => $this->get_option( 'token_id' ),
 				)
 			);
@@ -178,7 +178,7 @@ class APISupport {
 			$this->options[ $name ] = $val;
 		}
 
-		return update_option( PISTACHIO_GMAIL_OPTIONS, $this->options );
+		return update_option( PICCOLO_GMAIL_OPTIONS, $this->options );
 	}
 
 	/**
@@ -197,7 +197,7 @@ class APISupport {
 		}
 		// The Large options variable is initialized on first demand.
 		if ( empty( $this->large_options ) ) {
-			$options             = wlo_get_option( PISTACHIO_GMAIL_OPTIONS, $default );
+			$options             = wlo_get_option( PICCOLO_GMAIL_OPTIONS, $default );
 			$this->large_options = $options;
 		}
 
@@ -240,11 +240,11 @@ class APISupport {
 			$this->large_options[ $name ] = $val;
 		}
 
-		return wlo_update_option( PISTACHIO_GMAIL_OPTIONS, $this->large_options );
+		return wlo_update_option( PICCOLO_GMAIL_OPTIONS, $this->large_options );
 	}
 
 	public function setup_keyring_service() {
-		$this->service = call_user_func( array( PISTACHIO_GMAIL_KEYRING_SERVICE, 'init' ) );
+		$this->service = call_user_func( array( PICCOLO_GMAIL_KEYRING_SERVICE, 'init' ) );
 		$this->service->set_token( $this->token );
 		$this->is_connected = $this->is_connected();
 	}
@@ -300,7 +300,7 @@ class APISupport {
 	 * @param array  $request
 	 */
 	public function delete_piccolo_token_id( $service, $request ) {
-		if ( PISTACHIO_GMAIL_KEYRING_SLUG !== $service ) {
+		if ( PICCOLO_GMAIL_KEYRING_SLUG !== $service ) {
 			return;
 		}
 

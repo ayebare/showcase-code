@@ -96,7 +96,7 @@ class Api {
 		$params = array(
 			'includeSpamTrash' => false,
 			'maxResults'       => 300,
-			'q'                => 'label:INBOX !label:' . PISTACHIO_GMAIL_IMPORTED_LABEL,
+			'q'                => 'label:INBOX !label:' . PICCOLO_GMAIL_IMPORTED_LABEL,
 		);
 
 		try {
@@ -456,7 +456,7 @@ class Api {
 			return new \WP_Error( 'keyring_service', __( 'It looks like the Keyring plugin is not installed.', 'piccolo' ), array( 'status' => 503 ) );
 		}
 
-		$service = \Keyring::get_service_by_name( PISTACHIO_GMAIL_KEYRING_SLUG );
+		$service = \Keyring::get_service_by_name( PICCOLO_GMAIL_KEYRING_SLUG );
 
 		if ( ! $service ) {
 			return new \WP_Error( 'keyring_service', __( 'It looks like you don\'t have the Google Mail service for Keyring installed.', 'piccolo' ), array( 'status' => 503 ) );
@@ -614,7 +614,7 @@ class Api {
 			$mail_labels = $this->fetch_mailbox_labels();
 
 			if ( ! empty( $mail_labels->labels ) ) {
-				$imported_label = current( wp_list_filter( $mail_labels->labels, array( 'name' => PISTACHIO_GMAIL_IMPORTED_LABEL ) ) );
+				$imported_label = current( wp_list_filter( $mail_labels->labels, array( 'name' => PICCOLO_GMAIL_IMPORTED_LABEL ) ) );
 
 				if ( ! empty( $imported_label->id ) ) {
 					$label_id = $imported_label->id;
